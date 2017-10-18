@@ -1,0 +1,12 @@
+{% block content %}
+  <h1>Can We Guess Your Favorite Dog?</h1>
+  <form method="POST" action="http://localhost:5000/results-first">
+      {{ form.hidden_tag() }}
+      {% for message in get_flashed_messages() %}
+      {{ message }}
+      {% endfor %}
+      <p>{{ form.username.label }}{{ form.username() }}</p>
+      <p>{{ form.choice.label }}{{ form.choice() }}</p>
+      {{ form.send() }}
+  </form>
+{% endblock %}

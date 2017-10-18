@@ -1,0 +1,23 @@
+<html>
+<body>
+	<h1>Results!</h1>
+	{% if data[0] == "First Form" %}
+		<p>After great deliberation, {{data[1]}}, we've figured out your favorite dog. It's:<p></b>
+		{% if data[2] == "static/paloma" %}
+			<img src="{{data[2]}}.jpg" height = "450">
+			<p>A Golden Lab/Husky mix!</p>
+		{% elif data[2] == "static/choco" %}
+			<img src="{{data[2]}}.jpg" height = "450">
+			<p>A Chocolate Lab!</p>
+		{% elif data[2] == "static/gir" %}
+			<img src="{{data[2]}}.jpg" height = "450">
+			<p>A Black Lab/Great Dane mix!</p>
+		{% endif %}
+	{% else %}
+		<p>They say a picture is worth a thousand words. Can you think of {{data[1]}} words to describe {{data[2].split("/")[1]}}?<p></b>
+		<img src="{{data[2]}}.jpg" height = "450">
+	{% endif %}
+	<!-- link to new page with for loop, ask for a number of other photos to be shown as a bonus, then do for loop to look at them -->
+	<p><a href="http://localhost:5000/">Home Page</a> | <a href="http://localhost:5000/first-question">Dog Question</a> | <a href="http://localhost:5000/second-question">Word Choice</a></p>
+</body>
+</html

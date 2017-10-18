@@ -1,0 +1,13 @@
+{% block content %}
+  <h1>You'll NEVER Guess What These Words Mean!</h1>
+  <p>Input a number and choose one word to find out!</p>
+  <form method="POST" action="http://localhost:5000/results-second">
+      {{ form.hidden_tag() }}
+      {% for message in get_flashed_messages() %}
+      {{ message }}
+      {% endfor %}
+      <p>{{ form.number.label }}{{ form.number() }}</p>
+      <p>{{ form.choice.label }}{{ form.choice() }}</p>
+      {{ form.send() }}
+  </form>
+{% endblock %}
