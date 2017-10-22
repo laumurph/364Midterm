@@ -1,0 +1,12 @@
+<html>
+	<body>
+		<H1>Where Should You Go for Your Next Weekend Getaway?</H1>
+		<p>Pick one of the following to find out your next destination!</p>
+			<form action="http://localhost:5000/full-images", method="GET">
+				<input type='radio' name="destination" value="0">Clementines</br>
+				<input type="radio" name="destination" value="1">Marigolds</br>
+				<input type="raido" name="destination" value="2">Robots</br>
+				<input type="submit" value="Submit">
+			</form>
+	</body>
+</html>

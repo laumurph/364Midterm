@@ -18,6 +18,12 @@
 		<img src="{{data[2]}}.jpg" height = "450">
 	{% endif %}
 	<!-- link to new page with for loop, ask for a number of other photos to be shown as a bonus, then do for loop to look at them -->
-	<p><a href="http://localhost:5000/">Home Page</a> | <a href="http://localhost:5000/first-question">Dog Question</a> | <a href="http://localhost:5000/second-question">Word Choice</a></p>
+	<form action="http://localhost:5000/full-images", method="GET">
+		<p>Would you like to see the rest of the images?</p>
+		<input type='radio' name="response" value = "Yes,{{data[0]}},{{data[2]}}">Yes</br>
+		<input type="radio" name="response" value="No">No, bring me back to the home page</br>
+		<input type="submit" value="Submit">
+	</form>
+	<p><a href="http://localhost:5000/">Home Page</a> | <a href="http://localhost:5000/first-question">Dog Question</a> | <a href="http://localhost:5000/second-question">Word Choice</a> | <a href="http://localhost:5000/third-question">Weekend Getaway</a></p>
 </body>
 </html

@@ -1,0 +1,11 @@
+<html>
+<body>
+	<H1>Other Photos </H1>
+		<p>Here are the other photos you didn't see from earlier!</p>
+		{% for pic in resp %}
+			<img src="{{pic}}.jpg" height = "450"></br>
+			<p></p>
+		{% endfor %}
+		<p><a href="http://localhost:5000/">Home Page</a> | <a href="http://localhost:5000/first-question">Dog Question</a> | <a href="http://localhost:5000/second-question">Word Choice</a> | <a href="http://localhost:5000/third-question">Weekend Getaway</a></p>
+</body>
+</html>

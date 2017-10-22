@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request, redirect, url_for, flash
+from flask import Flask, render_template, request, redirect, url_for, flash, make_response
 from flask_wtf import FlaskForm
 from wtforms import StringField, IntegerField, RadioField, SubmitField
 from wtforms.validators import Required, NumberRange
@@ -8,6 +8,11 @@ import random
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'awfhufiwIOAfHUFjA2RF3E122RXQafwf843Rafw'
+
+#global variables
+doggo_photos = ["static/paloma", "static/choco", "static/gir"]
+aesthetic_photos = ["static/water", "static/sunset", "static/moon"]
+travel_photos = ["static/south_haven", "static/midland", "static/pittsburgh"]
 
 #404 error
 @app.errorhandler(404)
@@ -21,12 +26,12 @@ def page_not_found(e):
 
 class FirstClickbait(FlaskForm):
 	username = StringField("Create a username for yourself: ", validators=[Required()])
-	choice = RadioField("Pick one of the following: ", choices=[("static/paloma", "Cookies"),("static/choco", "Chocolate"),("static/gir", "Carrots")], validators=[Required()])
+	choice = RadioField("Pick one of the following: ", choices=[(doggo_photos[0], "Cookies"),(doggo_photos[1], "Chocolate"),(doggo_photos[2], "Carrots")], validators=[Required()])
 	send = SubmitField("See Results")
 
 class SecondClickbait(FlaskForm):
 	number = IntegerField("What's your favorite number? Enter here: ", validators=[Required(), NumberRange()])
-	choice = RadioField("Pick one of the following: ", choices=[("static/water", "Option"),("static/sunset", "Sec"),("static/moon", "Reap"), ("random", "I don't care, give me a random word")], validators=[Required()])
+	choice = RadioField("Pick one of the following: ", choices=[(aesthetic_photos[0], "Option"),(aesthetic_photos[1], "Sec"),(aesthetic_photos[2], "Reap"), ("random", "I don't care, give me a random word")], validators=[Required()])
 	send = SubmitField("See Results")
 
 @app.route('/')
@@ -60,14 +65,40 @@ def results_second():
 		number = sForm.number.data
 		choice = sForm.choice.data
 		if choice == "random":
-			lst = ["static/water", "static/sunset", "static/moon"]
 			pos = random.randint(0,2)
-			choice = lst[pos]
+			choice = aesthetic_photos[pos]
 		return render_template("response.html", data = ("Second Form", number, choice)) 
 	flash('All fields are required!')
 	return redirect(url_for('second_question'))
 
-# @app.route("/third-question")
-# def third_question():
-# 	pass
+@app.route("/full-images")
+def full_images():
+	answer = request.args.get("response")
+	if answer == "No":
+		return render_template("index.html")
+	answer_lst = answer.split(',')
+	if answer_lst[1] == "First Form":
+		new_photos = doggo_photos
+		new_photos.remove(answer_lst[2])
+	else:
+		new_photos = aesthetic_photos
+		new_photos.remove(answer_lst[2])
 
+
+	return render_template('other_photos.html', resp = new_photos)
+
+@app.route("/third-question")
+def third_question():
+	return render_template("third_form.html")
+
+
+@app.route("/results-third")
+def results_third():
+	option = int(request.args.get("destination"))
+	return render_template("results_third.html", photo_data=(travel_photos[option], travel_photos[option].split("/")[1].replace("_"," ").title()))
+
+@app.route("/cookie-monster")
+def cookie_setter():
+	response = make_response("<p>Here's the cookie monster! Here's a secret gift! <a href='http://localhost:5000/'>Home</a></p>")
+	response.set_cookie('monster', 'here')
+	return response
