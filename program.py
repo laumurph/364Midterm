@@ -16,12 +16,12 @@ travel_photos = ["static/south_haven", "static/midland", "static/pittsburgh"]
 
 #404 error
 @app.errorhandler(404)
-def page_not_found(e):
+def user_error(e):
     return render_template('404.html')
 
 # 500 error
 @app.errorhandler(500)
-def page_not_found(e):
+def server_error(e):
     return render_template('500.html')
 
 class FirstClickbait(FlaskForm):
@@ -35,7 +35,7 @@ class SecondClickbait(FlaskForm):
 	send = SubmitField("See Results")
 
 @app.route('/')
-def index():
+def index_page():
 	return render_template("index.html")
 
 @app.route("/first-question")
@@ -94,8 +94,11 @@ def third_question():
 
 @app.route("/results-third")
 def results_third():
-	option = int(request.args.get("destination"))
-	return render_template("results_third.html", photo_data=(travel_photos[option], travel_photos[option].split("/")[1].replace("_"," ").title()))
+	try:
+		option = int(request.args.get("destination"))
+		return render_template("results_third.html", photo_data=(travel_photos[option], travel_photos[option].split("/")[1].replace("_"," ").title()))
+	except:
+		return render_template("third_form.html")
 
 @app.route("/cookie-monster")
 def cookie_setter():
