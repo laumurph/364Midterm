@@ -1,1 +1,2 @@
 # 364Midterm
+This repository is for Lauren Murphy's Interactive Web Applications midterm. It functions as a clickbait site, so users can do short 'quizzes' to reveal information. In this case, the information is mostly sending users a photo based on their response. There's a homepage at the main '/' route, with hyperlinks to the quizzes. 
